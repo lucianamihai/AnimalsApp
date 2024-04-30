@@ -4,15 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.animalsapp.R
-import com.example.animalsapp.AnimalModel
-import com.example.animalsapp.EContinent
-import android.view.Gravity
-
-class AnimalListAdapter(private val animalList: List<AnimalModel>) :
-    RecyclerView.Adapter<AnimalListAdapter.AnimalViewHolder>() {
+class AnimalListAdapter(
+    private val animalList: List<AnimalModel>,
+    private val onItemClick: (String, String) -> Unit
+) : RecyclerView.Adapter<AnimalListAdapter.AnimalViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -25,7 +21,7 @@ class AnimalListAdapter(private val animalList: List<AnimalModel>) :
             EContinent.NORTH_AMERICA -> inflater.inflate(R.layout.item_north_america, parent, false)
             EContinent.SOUTH_AMERICA -> inflater.inflate(R.layout.item_south_america, parent, false)
         }
-        return AnimalViewHolder(view)
+        return AnimalViewHolder(view,onItemClick)
     }
     override fun onBindViewHolder(holder: AnimalViewHolder, position: Int) {
         holder.bind(animalList[position])
@@ -38,29 +34,32 @@ class AnimalListAdapter(private val animalList: List<AnimalModel>) :
     override fun getItemViewType(position: Int): Int {
         return animalList[position].continent.ordinal
     }
-    class AnimalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class AnimalViewHolder(itemView: View, private val onItemClick: (String, String) -> Unit) : RecyclerView.ViewHolder(itemView) {
         private val animalTextView: TextView = itemView.findViewById(R.id.animalTextView)
         private val continentTextView: TextView = itemView.findViewById(R.id.continentTextView)
 
+
         fun bind(animal: AnimalModel) {
             animalTextView.text = animal.name
-            if(animal.continent.name=="AFRICA")
-                continentTextView.text = "Africa"
-            if(animal.continent.name=="ANTARCTICA")
-                continentTextView.text = "Antarctica"
-            if(animal.continent.name=="AUSTRALIA")
-                continentTextView.text = "Australia"
-            if(animal.continent.name=="ASIA")
-                continentTextView.text = "Asia"
-            if(animal.continent.name=="EUROPE")
-                continentTextView.text = "Europe"
-            if(animal.continent.name=="NORTH_AMERICA")
-                continentTextView.text = "North America"
-            if(animal.continent.name=="SOUTH_AMERICA")
-                continentTextView.text = "South America"
+            val continentName = when (animal.continent) {
+                EContinent.AFRICA -> "Africa"
+                EContinent.ANTARCTICA -> "Antarctica"
+                EContinent.AUSTRALIA -> "Australia"
+                EContinent.ASIA -> "Asia"
+                EContinent.EUROPE -> "Europe"
+                EContinent.NORTH_AMERICA -> "North America"
+                EContinent.SOUTH_AMERICA -> "South America"
+            }
+            continentTextView.text = continentName
 
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
 
-
+                    onItemClick.invoke(animal.name, continentName)
+                }
+            }
         }
     }
+
 }

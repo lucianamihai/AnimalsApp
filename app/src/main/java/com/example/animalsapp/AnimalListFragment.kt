@@ -7,12 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.animalsapp.AnimalListAdapter
-import com.example.animalsapp.AnimalModel
-import com.example.animalsapp.EContinent
 
 class AnimalListFragment : Fragment() {
-
+    private lateinit var recyclerView: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,6 +20,7 @@ class AnimalListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        recyclerView = view.findViewById(R.id.rv_animal_list)
         setupAnimalList()
     }
 
@@ -30,13 +28,20 @@ class AnimalListFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
 
         val animalList = getAnimals()
-        val adapter = AnimalListAdapter(animalList)
+        val adapter = AnimalListAdapter(animalList){ animalName, continentName ->
+            val fragment = AnimalDetailFragment.newInstance(animalName, continentName)
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
 
-        view?.findViewById<RecyclerView>(R.id.rv_animal_list)?.apply {
+        recyclerView.apply {
             this.layoutManager = layoutManager
             this.adapter = adapter
         }
-    }private fun getAnimals(): List<AnimalModel> {
+    }
+    private fun getAnimals(): List<AnimalModel> {
         return listOf(
             AnimalModel("Kangaroo", EContinent.AUSTRALIA),
             AnimalModel("Wolf", EContinent.EUROPE),
