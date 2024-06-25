@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AnimalsApp</string>
+    <string name="name_hint">Name of an Animal ...</string>
+    <string name="continent_hint">Continent ...</string>
+    <string name="add_button">Add</string>
+    <string name="delete_button">Delete</string>
 </resources>

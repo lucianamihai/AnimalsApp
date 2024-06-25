@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Name of an Animal ..."
+        android:layout_marginBottom="16dp"
+        android:padding="12dp"/>
+
+    <EditText
+        android:id="@+id/continentEditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Continent ..."
+        android:layout_below="@id/nameEditText"
+        android:layout_marginBottom="16dp"
+        android:padding="12dp"/>
 
     <Button
-        android:id="@+id/backButton"
+        android:id="@+id/addButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:drawableLeft="@drawable/ic_arrow_back"
-        android:text="Back" />
+        android:layout_height="48dp"
+        android:text="Add"
+        android:layout_below="@id/continentEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:padding="12dp"/>
 
-    <Button
-        android:id="@+id/closeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:drawableRight="@drawable/ic_close"
-        android:text="Close" />
-
-    <!-- Restul layout-ului tău -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/addButton"
+        android:layout_marginTop="16dp"/>
 
 </RelativeLayout>
