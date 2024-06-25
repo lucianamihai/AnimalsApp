@@ -48,6 +48,10 @@ class MainActivity : AppCompatActivity() {
 
         loadAnimals()
     }
+    fun toLowerCaseExceptFirst(input: String): String {
+        if (input.isEmpty()) return input
+        return input[0].uppercase() + input.substring(1).lowercase()
+    }
 
     private fun addOrUpdateAnimal() {
         val name = nameEditText.text.toString().trim()
@@ -63,12 +67,17 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val animal = Animal(name, continent)
+        val animal = Animal(toLowerCaseExceptFirst(name), continent)
         CoroutineScope(Dispatchers.IO).launch {
             database.animalDao().insertOrUpdate(animal)
-            loadAnimals()
+            withContext(Dispatchers.Main) {
+                nameEditText.text.clear()
+                continentEditText.text.clear()
+                loadAnimals()
+            }
         }
     }
+
 
     private fun loadAnimals() {
         CoroutineScope(Dispatchers.IO).launch {

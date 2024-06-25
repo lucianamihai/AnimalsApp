@@ -1,9 +1,5 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="30dp"
-    android:height="30dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path
-        android:fillColor="#FF0000"
-        android:pathData="M3 6h18v2H3V6zm2 3h14v14H5V9zm5 0v12h2V9H10zm4 0v12h2V9h-2z"/>
-</vector>
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/delete_pressed" android:state_pressed="true"/>
+    <item android:drawable="@drawable/delete_default"/>
+</selector>

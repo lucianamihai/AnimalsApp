@@ -6,4 +6,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorPressed">#F2D7D5</color>
+    <color name="colorNormal">#E6B0AA</color>
+    <color name="textColorPressed">#000000</color>
+    <color name="textColorNormal">#FFFFFF</color>
 </resources>

@@ -3,8 +3,8 @@ package com.example.animalsapp
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animalsapp.database.Animal
 
@@ -35,7 +35,7 @@ class AnimalAdapter(private val deleteCallback: (Animal) -> Unit) :
     inner class AnimalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
         private val continentTextView: TextView = itemView.findViewById(R.id.continentTextView)
-        private val deleteButton: Button = itemView.findViewById(R.id.deleteButton)
+        private val deleteButton: AppCompatImageButton = itemView.findViewById(R.id.deleteButton)
 
         fun bind(animal: Animal) {
             nameTextView.text = animal.name
